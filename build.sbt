@@ -4,18 +4,13 @@ organization := "org.scala-sbt"
 
 version := "0.7.1-SNAPSHOT"
 
+scalaVersion := "2.9.2"
+
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-Xcheckinit", "-Xfatal-warnings")
 
 publishMavenStyle := false
 
-publishTo <<= (version) { version: String =>
-    val scalasbt = "http://scalasbt.artifactoryonline.com/scalasbt/"
-    val (name, url) = if (version.contains("-"))
-                        ("sbt-plugin-snapshots", scalasbt+"sbt-plugin-snapshots")
-                      else
-                        ("sbt-plugin-releases", scalasbt+"sbt-plugin-releases")
-    Some(Resolver.url(name, new URL(url))(Resolver.ivyStylePatterns))
-}
+publishTo := Some(Resolver.file("file", new File( Path.userHome+"/.ivy2/local/")) )
 
 credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
 
